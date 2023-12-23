@@ -1,0 +1,59 @@
+<h2>Список пользователей<button class="primary" onclick="toggleDialog()" title="Добавить пользователя">+ Добавить</button></h2>
+<div class="card warning" id="errorExists"><p>Пользователь с данным именем пользователя уже существует</p></div>
+
+<div class="cards-list">
+    <% for (let user of data) {%>
+    <div class="card">
+        <div class="card-flex">
+            <p class="card-title"><%= user.last_name %> <%= user.first_name %> <%= user.middle_name || '' %></p>
+        <p class="card-gray">@<%= user.username %> · <%= {'department': 'Учебная часть', 'responsible': 'Ответственный за учебную работу на кафедре', 'dispatch': 'Диспетчерская', 'admin': 'Администратор'}[user.role] %></p>
+        </div>
+        <% if (user.role != 'admin') { %>
+        <form action="/users/delete" method="post">
+            <input type="text" hidden value="<%= user.username%>" name="username">
+            <button type="submit" title="Удалить пользователя @<%=user.username %>">🗑️</button>
+        </form>
+        <% } %>
+    </div>
+    <%} %>
+</div>
+
+
+
+<div id="dialog-wrapper">
+    <div class="dialog">
+        <h3>Добавить пользователя</h3>
+        <form action="/users/add" method="post">
+            <p>
+                <label for="username">Имя пользователя</label>
+                <input type="text" name="username" id="username" required>
+            </p>
+            <p>
+                <label for="password">Пароль</label>
+                <input type="password" name="password" id="password" required>
+            </p>
+            <p>
+                <label for="username">Фамилия</label>
+                <input type="text" name="lastName" id="lastName" required>
+            </p>
+            <p>
+                <label for="firstName">Имя</label>
+                <input type="text" name="firstName" id="firstName" required>
+            </p>
+            <p>
+                <label for="username">Отчество</label>
+                <input type="text" name="middleName" id="middleName">
+            </p>
+            <p>
+                <label for="username">Роль</label>
+                <select name="role" id="role" required>
+                    <option value="department">Учебная часть</option>
+                    <option value="responsible">Ответственный за учебную работу на кафедре</option>
+                    <option value="dispatch">Диспетчерская</option>
+                </select>
+            </p>
+            <button type="submit" class="primary">Сохранить</button>
+            <button type="reset" onclick="toggleDialog()">Отмена</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<h2>Список преподавателей<button class="primary" onclick="toggleDialog()">+ Добавить</button></h2>
+<div class="card warning" id="errorExists"><p>Такой преподаватель уже существует</p></div>
+<table>
+    <tr>
+        <th>№</th>
+        <th style="width: 100%;">ФИО преподавателя</th>
+        <th></th>
+    </tr>
+
+    <% for (let teacher of data) { %>
+    <tr>
+        <td><span class="table-counter"></span></td>
+        <td><%= `${teacher.last_name} ${teacher.first_name} ${teacher.middle_name || '' }` %></td>
+        <td><form action="/teachers/delete" method="post">
+            <input type="text" hidden value="<%= teacher.id %>" name="id">
+            <button type="submit" title="Удалить преподавателя">🗑️</button>
+        </form></td>
+    </tr>
+    <% } %>
+</table>
+
+<div id="dialog-wrapper">
+    <div class="dialog">
+        <h3>Добавить преподавателя</h3>
+        <form action="/teachers/add" method="post">
+            <p>
+                <label for="username">Фамилия</label>
+                <input type="text" name="lastName" id="lastName" required>
+            </p>
+            <p>
+                <label for="firstName">Имя</label>
+                <input type="text" name="firstName" id="firstName" required>
+            </p>
+            <p>
+                <label for="username">Отчество</label>
+                <input type="text" name="middleName" id="middleName">
+            </p>
+            <button type="submit" class="primary">Сохранить</button>
+            <button type="reset" onclick="toggleDialog()">Отмена</button>
+        </form>
+    </div>
+</div>
+

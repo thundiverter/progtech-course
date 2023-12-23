@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+:root {
+    font-family: 'Inter', sans-serif;
+
+    --color-bg: #F2F0F4;
+    --color-text: #000000;
+    --color-text-secondary: gray;
+    --color-main-bg: #FFFFFF;
+    --color-main-border: #EBEBEB;
+
+    --color-nav-bg: transparent;
+    --color-nav-text: #242424;
+    --color-nav-active-bg: #EBEBEB;
+    --color-nav-active-text: #0F6CBD;
+    --color-icon-inactive: #1E1E1E;
+    --color-icon-active: #0F6CBD;
+
+    --color-button-bg: transparent;
+    --color-button-border: #D1D1D1;
+    --color-button-text: #242424;
+    --color-button-active-bg: #0078D4;
+    --color-button-active-text: white;
+    --color-button-active-border: #0078D4;
+
+    --color-card-border: #e0e0e0;
+}
+
+body {
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: 1280px;
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+main {
+    background: var(--color-main-bg);
+    padding: 1rem;
+    border: 1px solid var(--color-main-border);
+    border-radius: .6rem;
+    box-shadow: 0px 3px 4px 0px var(--color-main-border);
+}
+
+h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .5rem 0 1.5rem 0;
+    font-size: 1.25rem;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table tr th {
+    border-bottom: 1px solid var(--color-main-border);
+}
+table tr:last-of-type {
+    border: none;
+}
+table tr:hover > td {
+    background: rgba(0, 0, 0, .03);
+}
+table td,
+table th {
+    padding: .4rem .6rem;
+    text-align: left;
+}
+
+/* Button */
+button {
+    color: var(--color-button-text);
+    border: 1px solid var(--color-button-border);
+    background: var(--color-button-bg);
+    padding: .4rem .8rem;
+    border-radius: .4rem;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+}
+button.primary {
+    color: var(--color-button-active-text);
+    border: 1px solid var(--color-button-active-border);
+    background: var(--color-button-active-bg);
+}
+
+/* input, select */
+input, select {
+    color: var(--color-button-text);
+    border: 1px solid var(--color-button-border);
+    background: var(--color-button-bg);
+    padding: .4rem .8rem;
+    border-radius: .4rem;
+    font-family: inherit;
+    font-size: .9rem;
+    width: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+#dialog-wrapper {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dialog {
+    background: var(--color-main-bg);
+    padding: 1rem;
+    border: 1px solid var(--color-main-border);
+    border-radius: .6rem;
+}
+
+form label {
+    font-size: .85rem;
+    padding-bottom: .25rem;
+    display: inline-block;
+}
+
+form :is(h1, h2, h3, h4, h5, h6) {
+    margin: 0;
+    padding: 0;
+}
+
+/* cards */
+.cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+.card {
+    border: 1px solid var(--color-card-border);
+    padding: .75rem 1rem;
+    border-radius: .4rem;
+    display: flex;
+    gap: .5rem;
+    justify-content: space-between;
+    align-items: center;
+}
+.card * {
+    margin: .2rem 0;
+    padding: 0;
+}
+.card-title {
+    font-weight: bold;
+}
+.card-gray {
+    font-size: .9rem;
+    color: var(--color-text-secondary);
+}
+.card button {
+    padding: .4rem .7rem;
+}
+
+/* anchors */
+p a {
+    font-size: .85rem;
+    text-decoration: none;
+    text-underline-offset: 4px;
+}
+p a:hover, p a:focus-visible {
+    text-decoration: underline;
+}
+
+.card.warning {
+    border-color: rgba(255, 0, 0, .25);
+    color: rgba(255, 0, 0, .75);
+    margin-bottom: 1.5rem;
+}

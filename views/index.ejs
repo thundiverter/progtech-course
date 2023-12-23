@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %> | Личный кабинет</title>
+        <link rel="stylesheet" href="/static/main.css">
+        <link rel="stylesheet" href="/static/style.css">
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <p class="username"><%= name %><br><span class="gray"><%= {'department': 'Учебная часть', 'responsible': 'Ответственный за учебную работу на кафедре', 'dispatch': 'Диспетчерская', 'admin': 'Администратор'}[role] || 'Неизвестно' %></span></p>
+            <form action="/signout" method="post"><button>Выйти</button></form>
+        </header>
+        <nav>
+            <% for (let tab of tabs) {%>
+                <a href="<%=tab.path %>"
+                    <% if (path.startsWith(tab.path)) {%>
+                    class="active"
+                    <% } %>
+                    ><%- tab.icon %> <%= tab.title %></a>
+                <%} %>
+        </nav>
+        <main>
+            <%- include(viewPath || '', { data: data }); %>
+        </main>
+
+        <script>
+            const dialog = document.querySelector('#dialog-wrapper');
+            dialog.style.display = 'none';
+            function toggleDialog() {
+                dialog.style.display = { 'flex': 'none', 'none': 'flex'}[dialog.style.display];
+            }
+        </script>
+    </body>
+</html>
+
+<script>
+    const errorExists = document.querySelector('#errorExists');
+    const urlParams = new URLSearchParams(window.location.search);
+    if (errorExists) {
+        errorExists.style.display = 'none';
+        if (urlParams.get('error') == 'duplicate') {
+            errorExists.style.display = 'flex';
+        }
+    }
+</script>

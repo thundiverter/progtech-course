@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>Войти в аккаунт</title>
+        <link rel="stylesheet" href="/static/main.css">
+        <link rel="stylesheet" href="/static/login.css">
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <main>
+            <h2>Вход в аккаунт</h2>
+
+            <% if (queries?.error == 'password') { %>
+            <div class="card"><p>Неправильный пароль</p></div>
+            <% } %>
+            <% if (queries?.error == 'notfound') { %>
+                <div class="card"><p>Пользователь не найден</p></div>
+                <% } %>
+
+            <form action="/signin" method="post">
+                <p>
+                    <label for="username">Логин</label>
+                    <input type="text" name="username" required autofocus>
+                </p>
+
+                <p>
+                    <label for="password">Пароль</label>
+                    <input type="password" name="password" required>
+                </p>
+
+                <button class="primary" type="submit">Войти</button>
+            </form>
+        </main>
+    </body>
+</html>
+
+<style>
+    .card {
+        font-size: .9rem;
+        margin: 1rem 0;
+    }
+</style>

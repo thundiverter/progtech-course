@@ -1,0 +1,57 @@
+<h2>Список занятий<button class="primary" onclick="toggleDialog()">+ Добавить</button></h2>
+<div class="card warning" id="errorExists"><p>Такое занятие уже существует</p></div>
+<table>
+    <tr>
+        <th>№</th>
+        <th style="width: 50%;">ФИО преподавателя</th>
+        <th style="width: 50%;">Дисциплина</th>
+        <th></th>
+    </tr>
+
+    <% for (let d of data[0]) { %>
+    <tr>
+        <td><span class="table-counter"></span></td>
+        <td><%= data[1].find((s) => s.id == d.teacherID)?.last_name %> <%= data[1].find((s) => s.id == d.teacherID)?.first_name %> <%= data[1].find((s) => s.id == d.teacherID)?.middle_name || '' %></td>
+        <td><%= data[2].find((s) => s.id == d.subjectID)?.title %></td>
+        <td><form action="/classes-teachers/delete" method="post">
+            <input type="text" hidden value="<%= d.id %>" name="id">
+            <button type="submit" title="Удалить занятие">🗑️</button>
+        </form></td>
+    </tr>
+    <% } %>
+</table>
+
+<div id="dialog-wrapper">
+    <div class="dialog">
+        <h3>Добавить занятие</h3>
+        <form action="/classes-teachers/add" method="post">
+            <p>
+                <label for="teacher">Преподаватель</label>
+                <select name="teacher" id="teacher">
+                    <% for (let teacher of data[1]) { %>
+                        <option value="<%= teacher.id %>"><%= teacher.last_name %> <%= teacher.first_name %> <%= teacher?.middle_name || '' %></option>
+                    <% } %>
+                </select>
+            </p>
+            <p>
+                <label for="subject">Дисциплина</label>
+                <select name="subject" id="subject">
+                    <% for (let subject of data[2]) { %>
+                        <option value="<%= subject.id %>"><%= subject.title %></option>
+                    <% } %>
+                </select>
+            </p>
+            <button type="submit" class="primary">Сохранить</button>
+            <button type="reset" onclick="toggleDialog()">Отмена</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const errorExists = document.querySelector('#errorExists');
+    const urlParams = new URLSearchParams(window.location.search);
+    errorExists.style.display = 'none';
+    if (urlParams.get('error') == 'duplicate') {
+        errorExists.style.display = 'flex';
+    }
+</script>
